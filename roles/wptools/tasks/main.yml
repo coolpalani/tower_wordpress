@@ -6,9 +6,9 @@
 - name: create oc project
   command: oc new-project {{ projectname }}
   
-- name: copy templates wordpress4-mysql.json.j2
+- name: copy templates wordpress4-mysql.json
   template: 
-    src: templates/{{ item }}.j2
+    src: templates/{{ item }}
     dest: /tmp/{{ item }}
     owner: root
     group: root
@@ -23,7 +23,7 @@
   command: oc project {{ projectname }}
   
 - name: create application via sti
-  command: oc new-app -f /tmp/wordpress4-mysql.json.j2 
+  command: oc new-app -f /tmp/wordpress4-mysql.json
   
 - name: expose service
   command: oc expose service/wordpress-web --hostname={{ apphostname }}.{{ appdomain }}
