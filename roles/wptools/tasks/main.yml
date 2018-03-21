@@ -1,0 +1,29 @@
+---
+# tasks file for wptools
+- name: login to openshift
+  command: oc login -u={{ username }} -p={{ pass }} --insecure-skip-tls-verify {{ ochost }}:{{ ocport }}
+
+- name: create oc project
+  command: oc new-project {{ projectname }}
+  
+- name: copy templates wordpress4-mysql.json.j2
+  template: 
+    src: templates/{{ item }}.j2
+    dest: /tmp/{{ item }}
+    owner: root
+    group: root
+    mode: 0644 
+  with_items:
+    - wordpress4-mysql.json
+ 
+- name: switch to project
+  command: oc project {{ projectname }}
+
+- name: switch to project
+  command: oc project {{ projectname }}
+  
+- name: create application via sti
+  command: oc new-app -f /tmp/wordpress4-mysql.json.j2 
+  
+- name: expose service
+  command: oc expose service/wordpress-web --hostname={{ apphostname }}.{{ appdomain }}

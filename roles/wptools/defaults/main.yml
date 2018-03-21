@@ -1,0 +1,17 @@
+---
+# defaults file for wptools
+projectname: wordpress
+template: wordpress
+apphostname: wp-apps
+createtemplate: false
+quickapp: false
+esti: false
+git_url: https://github.com/coolpalani/tower_wordpress.git
+template: nodejs-example
+projectname: wordpress
+scaleme: false
+autoscale: false
+username: youruser
+pass: yourpass
+contextdir: .
+number_of_instances: 1
